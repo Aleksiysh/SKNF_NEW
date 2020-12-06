@@ -20,21 +20,21 @@ namespace SKNF
                 Console.Write(line + " :");
                 lst.Add(Console.ReadLine());
             }
-            Console.WriteLine(SKNF(lst, num_args)); // вызов функции и печать результата
+            Console.WriteLine(SKNF(lst)); // вызов функции и печать результата
         }
         /// <summary>
         /// Функция вычисления СКНФ
         /// </summary>
         /// <param name="lst">Массив результатов таблицы истинности</param>
-        /// <param name="num_args">Количество аргументов в выражении</param>
         /// <returns>Строка СКНФ</returns>
-        static string SKNF(List<string> lst, int num_args)
+        static string SKNF(List<string> lst)
         {
             //StringBuilder аналог класса String, но изменяемый.
             // классический стинг неизменяемый тип данных.
             //поэтому в строке str+="ss" не изменяется строка, а создается новая.
             StringBuilder sknf = new StringBuilder("");
             bool flag = true; //Признак начала строки
+            int num_args = (int)(Math.Log(lst.Count) / Math.Log(2));
             for (int i = 0; i < lst.Count; i++) // бежим по переданному массиву результатов
             {
                 if (lst[i] == "0") // если 0, формируем строку
