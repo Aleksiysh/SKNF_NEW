@@ -10,7 +10,7 @@ namespace SKNF
         static void Main()
         {
             Console.WriteLine("Введите количество аргументов:");
-            var num_args = Int32.Parse(Console.ReadLine());
+            var num_args = Int32.Parse(Console.ReadLine()); 
             List<string> lst = new List<string>(); //вместо динамических массивов удобнее использовать List
             //в данном случае создаем List из строк
             Console.WriteLine("Заполните таблицу истинности:");
@@ -22,8 +22,13 @@ namespace SKNF
             }
             Console.WriteLine(SKNF(lst, num_args)); // вызов функции и печать результата
         }
-
-        static string SKNF(List<string> lst, int len)
+        /// <summary>
+        /// Функция вычисления СКНФ
+        /// </summary>
+        /// <param name="lst">Массив результатов таблицы истинности</param>
+        /// <param name="num_args">Количество аргументов в выражении</param>
+        /// <returns>Строка СКНФ</returns>
+        static string SKNF(List<string> lst, int num_args)
         {
             //StringBuilder аналог класса String, но изменяемый.
             // классический стинг неизменяемый тип данных.
@@ -36,12 +41,12 @@ namespace SKNF
                 {
                     sknf.Append(flag ? "(" : "&&("); //если первая итерация, пишем "(", иначе "&&("
                     flag = false;
-                    var line = Convert.ToString(i, 2).PadLeft(len, '0'); // число в бинарную строку
+                    var line = Convert.ToString(i, 2).PadLeft(num_args, '0'); // число в бинарную строку
 
-                    for (int j = 0; j < len; j++) //бежим по бинарной строке
+                    for (int j = 0; j < num_args; j++) //бежим по бинарной строке
                     {
                         sknf.Append(line[j] == '0' ? "x" + (j + 1) : "!x" + (j + 1)); // если '0', то "xn", иначе !"xn"
-                        sknf.Append(j < len - 1 ? " || " : ")"); //если не последний х, то "||", иначе закрываем скобку
+                        sknf.Append(j < num_args - 1 ? " || " : ")"); //если не последний х, то "||", иначе закрываем скобку
                     }
                 }
             }
